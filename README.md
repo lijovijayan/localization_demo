@@ -78,3 +78,6 @@ API response should be like as follows
 <img src="./screenshot/1.png" width="350" alt="App demo">
 <img src="./screenshot/2.png" width="350" alt="App demo">
 <img src="./screenshot/3.png" width="350" alt="App demo">
+  Language 1               |  Language 2               | Language 3
+:-------------------------:|:-------------------------:|:-------------------------:
+  ![](./screenshot/1.png)  |  ![](./screenshot/2.png)  |  ![](./screenshot/3.png)
