@@ -75,4 +75,5 @@ API response should be like as follows
 
 # Demo
 
-![Alt text](./screenshot/1.png?raw=true "Title")
+![App demo](./screenshot/1.png?raw=true "App demo")
+<img src="./screenshot/1.png" width="350" alt="App demo">
