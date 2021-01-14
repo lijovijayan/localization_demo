@@ -1,16 +1,73 @@
 # localization_demo
 
-A new Flutter project.
+I18N support from server content.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+# Required packages
+* sembast: ^2.4.8+1
+* provider: ^4.3.2+3
+* path_provider: ^0.5.0+1
+* http: ^0.12.2
+* shared_preferences: ^0.5.10 
 
-A few resources to get you started if this is your first Flutter project:
+# How to use
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+1) Replace `i18nURL` value in file `i18n/services/i18n_service.dart` 
+API response should be like as follows
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    ```{
+      "version": 1,
+      "content": [
+        {
+          "language": "English",
+          "translate": {
+            "Hello World !": "Hello World !",
+            "Localization Demo": "Localization Demo",
+          }
+        },
+        {
+          "language": "Malayalam",
+          "translate": {
+            "Hello World !": "ഹലോ വേൾഡ് !",
+            "Localization Demo": "പ്രാദേശികവൽക്കരണ ഡെമോ",
+          }
+        },
+        {
+          "language": "Tamil",
+          "translate": {
+            "Hello World !": "ஹலோ வேர்ல்ட் !",
+            "Localization Demo": "உள்ளூராக்கல் டெமோ",
+          }
+        },
+        {
+          "language": "Hindi",
+          "translate": {
+            "Hello World !": "नमस्ते दुनिया !",
+            "Localization Demo": "स्थानीयकरण डेमो",
+          }
+        }
+      ]
+    }
+
+2) Add `LanguageProvider` to your providers list like as follows
+
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+      ],
+      child: MyApp(),
+    )
+    
+3) Use `TextLocalization` widget instead of `Text` widget.
+
+    TextLocalization('Hello World !')
+    
+4) For complex case use `LocalizationBuilder` widget
+
+    LocalizationBuilder(
+                      'Hello world !',
+                      builder: (BuildContext context, String value) {
+                        return Text(value);
+                      },
+                    )
