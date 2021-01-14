@@ -75,5 +75,6 @@ API response should be like as follows
 
 # Demo
 
-![App demo](./screenshot/1.png?raw=true "App demo")
 <img src="./screenshot/1.png" width="350" alt="App demo">
+<img src="./screenshot/2.png" width="350" alt="App demo">
+<img src="./screenshot/3.png" width="350" alt="App demo">
