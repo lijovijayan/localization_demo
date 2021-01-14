@@ -16,18 +16,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  Future<void> _onLanguageChange(
-      LanguageProvider provider, String lang) async {
-    var map = await http.get('https://6eeb06c5bac2.ngrok.io/');
-    print(map.body.toString());
+
+  Future<void> _onLanguageChange(LanguageProvider provider, String lang) async {
     provider.changeLanguage(lang);
-    print(provider.translate('Localization Demo'));
   }
 
   @override
   Widget build(BuildContext context) {
-    final languageProvider = Provider.of<LanguageProvider>(context);
-    languageProvider.fetchLatestI18N();
     return MaterialApp(
       home: SafeArea(
         child: Scaffold(
@@ -40,9 +35,9 @@ class MyApp extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 100,
+                      height: 30,
                     ),
-                    TextLocalization('Hello World'),
+                    TextLocalization('Hello World !'),
                     SizedBox(
                       height: 30,
                     ),
@@ -53,7 +48,7 @@ class MyApp extends StatelessWidget {
                       },
                     ),
                     SizedBox(
-                      height: 100,
+                      height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

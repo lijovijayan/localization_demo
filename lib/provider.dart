@@ -8,6 +8,9 @@ import 'package:localization_demo/models/i18n.model.dart';
 import 'package:http/http.dart' as http;
 
 class LanguageProvider with ChangeNotifier, DiagnosticableTreeMixin {
+  LanguageProvider() {
+    this.fetchLatestI18N();
+  }
   String _language = 'English';
 
   I18NDao _i18NDao = I18NDao();
@@ -23,7 +26,11 @@ class LanguageProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   String translate(String key) {
     I18N i18n = langMap[_language] as I18N;
-    return i18n.translate[key] ? i18n.translate[key] : key;
+    if (i18n != null && i18n.translate[key] != null) {
+      return i18n.translate[key];
+    } else {
+      return key;
+    }
   }
 
   void fetchLatestI18N() async {
