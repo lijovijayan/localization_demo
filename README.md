@@ -76,7 +76,7 @@ API response should be like as follows
 # Screenshots
 
 <p align="center">
-    <img src="./screenshot/1.png" width="350" alt="App Screenshot 1">
-    <img src="./screenshot/2.png" width="350" alt="App Screenshot 2">
-    <img src="./screenshot/3.png" width="350" alt="App Screenshot 3">
+    <img src="./screenshot/1.png" width="275" alt="App Screenshot 1">
+    <img src="./screenshot/2.png" width="275" alt="App Screenshot 2">
+    <img src="./screenshot/3.png" width="275" alt="App Screenshot 3">
 </p>
