@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:localization_demo/models/i18n.model.dart';
+import '../models/i18n.model.dart';
 
 class I18NDTO {
   

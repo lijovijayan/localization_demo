@@ -1,13 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:localization_demo/provider.dart';
+import '../providers/i18n_provider.dart';
 import 'package:provider/provider.dart';
-
-enum Languages {
-  english,
-  malayalam,
-  tamil,
-  hindi,
-}
 
   /// Creates a text widget with traslation support.
   ///

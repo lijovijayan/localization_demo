@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:localization_demo/dao/i18n.dao.dart';
-import 'package:localization_demo/models/i18n.dto.dart';
-import 'package:localization_demo/models/i18n.model.dart';
+import '../dao/i18n.dao.dart';
 import 'package:http/http.dart' as http;
+import '../models/i18n.dto.dart';
+import '../models/i18n.model.dart';
+import '../services/local_storage.dart';
 
 class LanguageProvider with ChangeNotifier, DiagnosticableTreeMixin {
   LanguageProvider() {
@@ -22,6 +21,10 @@ class LanguageProvider with ChangeNotifier, DiagnosticableTreeMixin {
   void changeLanguage(String lang) async {
     _language = lang;
     notifyListeners();
+  }
+
+  List<String> supportedLanguages() {
+    return langMap != null && langMap.keys.length > 0 ? langMap.keys.toList() : ['English'];
   }
 
   String translate(String key) {
@@ -67,14 +70,15 @@ class LanguageProvider with ChangeNotifier, DiagnosticableTreeMixin {
         }
       ]
     };
-
-    /*
-    * Actual
-    * final response = await http.get('https://6eeb06c5bac2.ngrok.io/');
-    * I18NDTO i18NDTO = I18NDTO.fromJson(jsonDecode(response.body));
-    */
+    int version = await LocalStorageService.getI18NVersion();
+    // * Actual
+    // final response = await http.get('https://6eeb06c5bac2.ngrok.io/$version');
+    // I18NDTO i18NDTO = I18NDTO.fromJson(jsonDecode(response.body));
 
     I18NDTO i18NDTO = I18NDTO.fromJson(responseBody);
+    if( i18NDTO.version == version) {
+      return;
+    }
     for (I18N i18N in i18NDTO.content) {
       I18N ei18N = await _i18NDao.findOne(i18N.language);
       if (ei18N == null) {
@@ -86,6 +90,7 @@ class LanguageProvider with ChangeNotifier, DiagnosticableTreeMixin {
         await _i18NDao.update(i18N);
       }
     }
+    notifyListeners();
   }
 
   /// Makes `Language` readable inside the devtools by listing all of its properties

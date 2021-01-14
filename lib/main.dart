@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:localization_demo/provider.dart';
+import './i18n/providers/i18n_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import 'localization.dart';
+import 'i18n/widgets/i18n_widget.dart';
 
 void main() {
   runApp(
@@ -16,9 +16,24 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   Future<void> _onLanguageChange(LanguageProvider provider, String lang) async {
     provider.changeLanguage(lang);
+  }
+
+  renderLanguages(LanguageProvider provider) {
+    return provider.supportedLanguages().map((String language) => Row(
+          children: [
+            new Radio(
+              value: language,
+              groupValue: provider.language,
+              onChanged: (lang) => {_onLanguageChange(provider, lang)},
+            ),
+            new Text(
+              language,
+              style: new TextStyle(fontSize: 16.0),
+            )
+          ],
+        )).toList();
   }
 
   @override
@@ -52,50 +67,7 @@ class MyApp extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Radio(
-                          value: 'English',
-                          groupValue: _provider.language,
-                          onChanged: (lang) =>
-                              {_onLanguageChange(_provider, lang)},
-                        ),
-                        new Text(
-                          'English',
-                          style: new TextStyle(fontSize: 16.0),
-                        ),
-                        new Radio(
-                          value: 'Malayalam',
-                          groupValue: _provider.language,
-                          onChanged: (lang) =>
-                              {_onLanguageChange(_provider, lang)},
-                        ),
-                        new Text(
-                          'Malayalam',
-                          style: new TextStyle(
-                            fontSize: 16.0,
-                          ),
-                        ),
-                        new Radio(
-                          value: 'Tamil',
-                          groupValue: _provider.language,
-                          onChanged: (lang) =>
-                              {_onLanguageChange(_provider, lang)},
-                        ),
-                        new Text(
-                          'Tamil',
-                          style: new TextStyle(fontSize: 16.0),
-                        ),
-                        new Radio(
-                          value: 'Hindi',
-                          groupValue: _provider.language,
-                          onChanged: (lang) =>
-                              {_onLanguageChange(_provider, lang)},
-                        ),
-                        new Text(
-                          'Hindi',
-                          style: new TextStyle(fontSize: 16.0),
-                        ),
-                      ],
+                      children: renderLanguages(_provider)
                     ),
                   ],
                 ),

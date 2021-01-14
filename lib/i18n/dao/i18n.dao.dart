@@ -1,5 +1,5 @@
-import 'package:localization_demo/dao/app.db.dart';
-import 'package:localization_demo/models/i18n.model.dart';
+import './app.db.dart';
+import '../models/i18n.model.dart';
 import 'package:sembast/sembast.dart';
 
 class I18NDao {
