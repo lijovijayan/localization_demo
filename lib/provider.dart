@@ -12,7 +12,7 @@ class LanguageProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   I18NDao _i18NDao = I18NDao();
 
-  Map<String, dynamic> langMap = Map<String, dynamic>(); 
+  Map<String, dynamic> langMap = Map<String, dynamic>();
 
   get language => _language;
 
@@ -21,9 +21,9 @@ class LanguageProvider with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
-  String translate(key) {
+  String translate(String key) {
     I18N i18n = langMap[_language] as I18N;
-    return i18n.translate[key];
+    return i18n.translate[key] ? i18n.translate[key] : key;
   }
 
   void fetchLatestI18N() async {
@@ -32,11 +32,31 @@ class LanguageProvider with ChangeNotifier, DiagnosticableTreeMixin {
       "content": [
         {
           "language": "English",
-          "translate": {"hello": "hallo"}
+          "translate": {
+            "Hello World !": "Hello World !",
+            "Localization Demo": "Localization Demo",
+          }
         },
         {
           "language": "Malayalam",
-          "translate": {"hello": "hallo malayalam"}
+          "translate": {
+            "Hello World !": "ഹലോ വേൾഡ് !",
+            "Localization Demo": "പ്രാദേശികവൽക്കരണ ഡെമോ",
+          }
+        },
+        {
+          "language": "Tamil",
+          "translate": {
+            "Hello World !": "ஹலோ வேர்ல்ட் !",
+            "Localization Demo": "உள்ளூராக்கல் டெமோ",
+          }
+        },
+        {
+          "language": "Hindi",
+          "translate": {
+            "Hello World !": "नमस्ते दुनिया !",
+            "Localization Demo": "स्थानीयकरण डेमो",
+          }
         }
       ]
     };

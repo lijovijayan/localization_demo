@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization_demo/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 import 'localization.dart';
 
 void main() {
@@ -15,11 +16,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  Language _language = Language.english;
-  Function _onLanguageChange(LanguageProvider provider, dynamic lang) {
-    _language = lang;
-    provider.changeLanguage('Malayalam');
-    print(provider.translate('hello'));
+  Future<void> _onLanguageChange(
+      LanguageProvider provider, String lang) async {
+    var map = await http.get('https://6eeb06c5bac2.ngrok.io/');
+    print(map.body.toString());
+    provider.changeLanguage(lang);
+    print(provider.translate('Localization Demo'));
   }
 
   @override
@@ -37,7 +39,19 @@ class MyApp extends StatelessWidget {
               return Center(
                 child: Column(
                   children: [
-                    Text('Hello World'),
+                    SizedBox(
+                      height: 100,
+                    ),
+                    TextLocalization('Hello World'),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    LocalizationBuilder(
+                      'Localization Demo',
+                      builder: (BuildContext context, String value) {
+                        return Text(value);
+                      },
+                    ),
                     SizedBox(
                       height: 100,
                     ),
@@ -45,7 +59,7 @@ class MyApp extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         new Radio(
-                          value: Language.english,
+                          value: 'English',
                           groupValue: _provider.language,
                           onChanged: (lang) =>
                               {_onLanguageChange(_provider, lang)},
@@ -55,8 +69,8 @@ class MyApp extends StatelessWidget {
                           style: new TextStyle(fontSize: 16.0),
                         ),
                         new Radio(
-                          value: Language.malayalam,
-                          groupValue: _language,
+                          value: 'Malayalam',
+                          groupValue: _provider.language,
                           onChanged: (lang) =>
                               {_onLanguageChange(_provider, lang)},
                         ),
@@ -67,8 +81,8 @@ class MyApp extends StatelessWidget {
                           ),
                         ),
                         new Radio(
-                          value: Language.tamil,
-                          groupValue: _language,
+                          value: 'Tamil',
+                          groupValue: _provider.language,
                           onChanged: (lang) =>
                               {_onLanguageChange(_provider, lang)},
                         ),
@@ -77,8 +91,8 @@ class MyApp extends StatelessWidget {
                           style: new TextStyle(fontSize: 16.0),
                         ),
                         new Radio(
-                          value: Language.hindi,
-                          groupValue: _language,
+                          value: 'Hindi',
+                          groupValue: _provider.language,
                           onChanged: (lang) =>
                               {_onLanguageChange(_provider, lang)},
                         ),
@@ -92,59 +106,6 @@ class MyApp extends StatelessWidget {
                 ),
               );
             },
-            // child: Center(
-            //   child: Column(
-            //     children: [
-            //       Text('Hello World'),
-            //       SizedBox(
-            //         height: 100,
-            //       ),
-            //       Row(
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         children: <Widget>[
-            //           new Radio(
-            //             value: Language.english,
-            //             groupValue: _language,
-            //             onChanged: (lang) => {_onLanguageChange(_provider, lang)},
-            //           ),
-            //           new Text(
-            //             'English',
-            //             style: new TextStyle(fontSize: 16.0),
-            //           ),
-            //           new Radio(
-            //             value: Language.malayalam,
-            //             groupValue: _language,
-            //             onChanged: (lang) => {_onLanguageChange(_provider, lang)},
-            //           ),
-            //           new Text(
-            //             'Malayalam',
-            //             style: new TextStyle(
-            //               fontSize: 16.0,
-            //             ),
-            //           ),
-            //           new Radio(
-            //             value: Language.tamil,
-            //             groupValue: _language,
-            //             onChanged: (lang) => {_onLanguageChange(_provider, lang)},
-            //           ),
-            //           new Text(
-            //             'Tamil',
-            //             style: new TextStyle(fontSize: 16.0),
-            //           ),
-            //           new Radio(
-            //             value: Language.hindi,
-            //             groupValue: _language,
-            //             onChanged: (lang) => {_onLanguageChange(_provider, lang)},
-            //           ),
-            //           new Text(
-            //             'Hindi',
-            //             style: new TextStyle(fontSize: 16.0),
-            //           ),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ),
         ),
       ),
